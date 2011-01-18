@@ -1,22 +1,18 @@
 <?php
 /**
  * Gallery Pictures Controller
- * 
+ *
  * Uploading pictures into gallery, and edit them
  *
  * PHP version 5
  *
  * @category Controller
- * @package  Croogo
- * @version  1.1
- * @author   Zijad Redžić <zijad.redzic@gmail.com>
+ * @package  CakeGallery
+ * @version  1.0
+ * @author   Vitor Pacheco Costa <vitor-p.c@hotmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.demoveo.com
  */
-class PhotosController extends GalleryAppController {
-
-    
-   
+class PhotosController extends CakeGalleryAppController {
 
 }
-?>
+

@@ -4,11 +4,10 @@
  *
  *
  * @category Model
- * @package  Croogo
- * @version  1.3
- * @author   Edinei L. Cipriani <phpedinei@gmail.com>
+ * @package  CakeGallery
+ * @version  1.0
+ * @author   Vitor Pacheco Costa <vitor-p.c@hotmail.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.edineicipriani.com.br
  */
 class Photo extends AppModel {
 /**
@@ -17,101 +16,92 @@ class Photo extends AppModel {
  * @var string
  * @access public
  */
-    var $name = 'Photo';	
-
-
+	var $name = 'Photo';
 	var $dir = '';
-
 /**
  * Model associations: belongsTo
  *
  * @var array
  * @access public
  */
-    var $belongsTo = array(
+	var $belongsTo = array(
 		'Album' => array(
 			'className' => 'Gallery.album',
 			'foreignKey' => 'album_id'
 		)
-    );
+	);
 
-	function __construct(){
+	public function __construct() {
 		parent::__construct();
 		$dir = WWW_ROOT  . 'img' . DS;
-		if(!is_dir($dir.'photos')){
+		if (!is_dir($dir.'photos')) {
 			mkdir($dir.'photos', 0777);
 		}
 		$this->dir = WWW_ROOT  . 'img' . DS . 'photos' . DS;
 	}
 
-	function beforeDelete(){
-		//$dir =  WWW_ROOT . 'img'. DS . 'photos' . DS;  
+	public function beforeDelete() {
 		$photo = $this->findById($this->id);
 		unlink($this->dir . $photo['Photo']['small']);
 		unlink($this->dir . $photo['Photo']['large']);
 		return true;
 	}
-	
-	
-	function beforeSave(){
 
+	public function beforeSave() {
 		$this->data = $this->upload($this->data);
 		return true;
 	}
-	
-	function upload($data){
-		$max_width = Configure::read('Gallery.max_width');
-    	$thumb_width = Configure::read('Gallery.max_width_thumb');
-    	$thumb_height = Configure::read('Gallery.max_height_thumb');
-    	$thumb_quality = Configure::read('Gallery.quality');
-		App::import('Vendor', 'Gallery.qqFileUploader', array('file' => 'qqFileUploader.php'));
-	   	$uploader = new qqFileUploader();
+
+	public function upload($data) {
+		$max_width = Configure::read('CakeGallery.max_width');
+		$thumb_width = Configure::read('CakeGallery.max_width_thumb');
+		$thumb_height = Configure::read('CakeGallery.max_height_thumb');
+		$thumb_quality = Configure::read('CakeGallery.quality');
+		App::import('Vendor', 'CakeGallery.qqFileUploader', array('file' => 'qqFileUploader.php'));
+		$uploader = new qqFileUploader();
 		$result = $uploader->handleUpload($this->dir);
-		
 		$width = $this->getWidth($this->dir.$result['file']);
 		$height = $this->getHeight($this->dir.$result['file']);
-		if ($width > $max_width){
+		if ($width > $max_width) {
 			$scale = $max_width/$width;
 			$this->resizeImage($this->dir.$result['file'],$width,$height,$scale);
-		}else{
+		} else {
 			$scale = 1;
 			$this->resizeImage($this->dir.$result['file'],$width,$height,$scale);
 		}
 		if (empty($thumb_height) && !empty($thumb_width)) {
 			$this->resizeImage2('resize', $result['file'], $this->dir, 'thumb_'.$result['file'], $thumb_width, FALSE, $thumb_quality);
-		}elseif (empty($thumb_width) && !empty($thumb_height)) {
+		} elseif (empty($thumb_width) && !empty($thumb_height)) {
 			$this->resizeImage2('resize', $result['file'], $this->dir, 'thumb_'.$result['file'], FALSE, $thumb_height, $thumb_quality);
-		}else{
+		} else {
 			$this->resizeImage2('resizeCrop', $result['file'], $this->dir, 'thumb_'.$result['file'], $thumb_width, $thumb_height, $thumb_quality);
 		}
-		
 		$data['Photo']['small'] = 'thumb_'.$result['file'];
 		$data['Photo']['large'] = $result['file'];
 		return $data;
 	}
-	
-	
-	function getHeight($image) {
+
+	public function getHeight($image) {
 		$sizes = getimagesize($image);
 		return $sizes[1];
 	}
-	
-	function getWidth($image) {
+
+	public function getWidth($image) {
 		$sizes = getimagesize($image);
 		return $sizes[0];
 	}
 
-	function resizeImage($image,$width,$height,$scale) {
+	public function resizeImage($image,$width,$height,$scale) {
 		$newImageWidth = ceil($width * $scale);
 		$newImageHeight = ceil($height * $scale);
 		$newImage = imagecreatetruecolor($newImageWidth,$newImageHeight);
 		$ext = strtolower(substr(basename($image), strrpos(basename($image), ".") + 1));
 		$source = "";
-		if($ext == "png"){
+		if ($ext == "png") {
 			$source = imagecreatefrompng($image);
-		}elseif($ext == "jpg" || $ext == "jpeg"){
+		} elseif ($ext == "jpg" || $ext == "jpeg") {
 			$source = imagecreatefromjpeg($image);
-		}elseif($ext == "gif"){
+		} elseif ($ext == "gif") {
 			$source = imagecreatefromgif($image);
 		}
 		imagecopyresampled($newImage,$source,0,0,0,0,$newImageWidth,$newImageHeight,$width,$height);
@@ -119,17 +109,17 @@ class Photo extends AppModel {
 		chmod($image, 0777);
 	}
 
-	function resizeThumbnailImage($thumb_image_name, $image, $width, $height, $start_width, $start_height, $scale){
+	public function resizeThumbnailImage($thumb_image_name, $image, $width, $height, $start_width, $start_height, $scale){
 		$newImageWidth = ceil($width * $scale);
 		$newImageHeight = ceil($height * $scale);
 		$newImage = imagecreatetruecolor($newImageWidth,$newImageHeight);
 		$ext = strtolower(substr(basename($image), strrpos(basename($image), ".") + 1));
 		$source = "";
-		if($ext == "png"){
+		if ($ext == "png") {
 			$source = imagecreatefrompng($image);
-		}elseif($ext == "jpg" || $ext == "jpeg"){
+		} elseif ($ext == "jpg" || $ext == "jpeg") {
 			$source = imagecreatefromjpeg($image);
-		}elseif($ext == "gif"){
+		} elseif ($ext == "gif") {
 			$source = imagecreatefromgif($image);
 		}
 		imagecopyresampled($newImage,$source,0,0,$start_width,$start_height,$newImageWidth,$newImageHeight,$width,$height);
@@ -138,65 +128,55 @@ class Photo extends AppModel {
 		return $thumb_image_name;
 	}
 
-	function cropImage($thumb_width, $x1, $y1, $x2, $y2, $w, $h, $thumbLocation, $imageLocation){
+	public function cropImage($thumb_width, $x1, $y1, $x2, $y2, $w, $h, $thumbLocation, $imageLocation){
 		$scale = $thumb_width/$w;
 		$cropped = $this->resizeThumbnailImage($thumbLocation,$imageLocation,$w,$h,$x1,$y1,$scale);
 	}
-	
-	
-	function resizeImage2($cType = 'resize', $id, $imgFolder, $newName = false, $newWidth=false, $newHeight=false, $quality = 75, $bgcolor = false)
-	{
+
+	public function resizeImage2($cType = 'resize', $id, $imgFolder,
+		$newName = false, $newWidth = false, $newHeight = false, $quality = 75,
+		$bgcolor = false) {
 		$img = $imgFolder . $id;
-		list($oldWidth, $oldHeight, $type) = getimagesize($img); 
+		list($oldWidth, $oldHeight, $type) = getimagesize($img);
 		$ext = $this->image_type_to_extension($type);
-		
-		//check to make sure that the file is writeable, if so, create destination image (temp image)
-		if (is_writeable($imgFolder))
-		{
-			if($newName){
+		// check to make sure that the file is writeable, if so, create
+		// destination image (temp image)
+		if (is_writeable($imgFolder)) {
+			if ($newName) {
 				$dest = $imgFolder . $newName;
 			} else {
 				$dest = $imgFolder . 'tmp_'.$id;
 			}
-		}
-		else
-		{
-			//if not let developer know
+		} else {
+			// if not let developer know
 			$imgFolder = substr($imgFolder, 0, strlen($imgFolder) -1);
 			$imgFolder = substr($imgFolder, strrpos($imgFolder, '\\') + 1, 20);
-			debug("You must allow proper permissions for image processing. And the folder has to be writable.");
+			debug("You must allow proper permissions for image processing. And
+				the folder has to be writable.");
 			debug("Run \"chmod 777 on '$imgFolder' folder\"");
 			exit();
 		}
-		
-		//check to make sure that something is requested, otherwise there is nothing to resize.
-		//although, could create option for quality only
-		if ($newWidth OR $newHeight)
-		{
-			/*
-			 * check to make sure temp file doesn't exist from a mistake or system hang up.
-			 * If so delete.
-			 */
-			if(file_exists($dest))
-			{
+		// check to make sure that something is requested, otherwise there is
+		// nothing to resize. although, could create option for quality only
+		if ($newWidth OR $newHeight) {
+			// check to make sure temp file doesn't exist from a mistake or system
+			// hang up. If so delete.
+			if (file_exists($dest)) {
 				unlink($dest);
-			}
-			else
-			{
-				switch ($cType){
+			} else {
+				switch ($cType) {
 					default:
 					case 'resize':
-						# Maintains the aspect ration of the image and makes sure that it fits
-						# within the maxW(newWidth) and maxH(newHeight) (thus some side will be smaller)
+						// Maintains the aspect ration of the image and makes sure that it fits
+						// within the maxW(newWidth) and maxH(newHeight) (thus some side will be smaller)
 						$widthScale = 2;
 						$heightScale = 2;
-						
-						if($newWidth) $widthScale = 	$newWidth / $oldWidth;
-						if($newHeight) $heightScale = $newHeight / $oldHeight;
-						//debug("W: $widthScale  H: $heightScale<br>");
-						if($widthScale < $heightScale) {
+						if ($newWidth) $widthScale = $newWidth / $oldWidth;
+						if ($newHeight) $heightScale = $newHeight / $oldHeight;
+						// debug("W: $widthScale  H: $heightScale<br>");
+						if ($widthScale < $heightScale) {
 							$maxWidth = $newWidth;
-							$maxHeight = false;							
+							$maxHeight = false;
 						} elseif ($widthScale > $heightScale ) {
 							$maxHeight = $newHeight;
 							$maxWidth = false;
@@ -204,55 +184,51 @@ class Photo extends AppModel {
 							$maxHeight = $newHeight;
 							$maxWidth = $newWidth;
 						}
-						
-						if($maxWidth > $maxHeight){
+						if ($maxWidth > $maxHeight) {
 							$applyWidth = $maxWidth;
 							$applyHeight = ($oldHeight*$applyWidth)/$oldWidth;
 						} elseif ($maxHeight > $maxWidth) {
 							$applyHeight = $maxHeight;
 							$applyWidth = ($applyHeight*$oldWidth)/$oldHeight;
 						} else {
-							$applyWidth = $maxWidth; 
-								$applyHeight = $maxHeight;
+							$applyWidth = $maxWidth;
+							$applyHeight = $maxHeight;
 						}
-						//debug("mW: $maxWidth mH: $maxHeight<br>");
-						//debug("aW: $applyWidth aH: $applyHeight<br>");
+						// debug("mW: $maxWidth mH: $maxHeight<br>");
+						// debug("aW: $applyWidth aH: $applyHeight<br>");
 						$startX = 0;
 						$startY = 0;
-						//exit();
+						// exit();
 						break;
 					case 'resizeCrop':
 						// -- resize to max, then crop to center
 						$ratioX = $newWidth / $oldWidth;
 						$ratioY = $newHeight / $oldHeight;
-	
-						if ($ratioX < $ratioY) { 
+						if ($ratioX < $ratioY) {
 							$startX = round(($oldWidth - ($newWidth / $ratioY))/2);
 							$startY = 0;
 							$oldWidth = round($newWidth / $ratioY);
 							$oldHeight = $oldHeight;
-						} else { 
+						} else {
 							$startX = 0;
 							$startY = round(($oldHeight - ($newHeight / $ratioX))/2);
 							$oldWidth = $oldWidth;
 							$oldHeight = round($newHeight / $ratioX);
 						}
-						$applyWidth = $newWidth;
-						$applyHeight = $newHeight;
-						break;
+							$applyWidth = $newWidth;
+							$applyHeight = $newHeight;
+							break;
 					case 'crop':
 						// -- a straight centered crop
 						$startY = ($oldHeight - $newHeight)/2;
 						$startX = ($oldWidth - $newWidth)/2;
 						$oldHeight = $newHeight;
 						$applyHeight = $newHeight;
-						$oldWidth = $newWidth; 
+						$oldWidth = $newWidth;
 						$applyWidth = $newWidth;
 						break;
 				}
-				
-				switch($ext)
-				{
+				switch ($ext) {
 					case 'gif' :
 						$oldImage = imagecreatefromgif($img);
 						break;
@@ -264,64 +240,51 @@ class Photo extends AppModel {
 						$oldImage = imagecreatefromjpeg($img);
 						break;
 					default :
-						//image type is not a possible option
+						// image type is not a possible option
 						return false;
 						break;
 				}
-				
-				//create new image
+				// create new image
 				$newImage = imagecreatetruecolor($applyWidth, $applyHeight);
-				
-				if($bgcolor):
-				//set up background color for new image
+				if ($bgcolor) {
+					// set up background color for new image
 					sscanf($bgcolor, "%2x%2x%2x", $red, $green, $blue);
-					$newColor = ImageColorAllocate($newImage, $red, $green, $blue); 
+					$newColor = ImageColorAllocate($newImage, $red, $green, $blue);
 					imagefill($newImage,0,0,$newColor);
-				endif;
-				
-				//put old image on top of new image
+				}
+				// put old image on top of new image
 				imagecopyresampled($newImage, $oldImage, 0,0 , $startX, $startY, $applyWidth, $applyHeight, $oldWidth, $oldHeight);
-				
-					switch($ext)
-					{
-						case 'gif' :
-							imagegif($newImage, $dest, $quality);
-							break;
-						case 'png' :
-							imagepng($newImage, $dest, $quality);
-							break;
-						case 'jpg' :
-						case 'jpeg' :
-							imagejpeg($newImage, $dest, $quality);
-							break;
-						default :
-							return false;
-							break;
-					}
-				
+				switch ($ext) {
+					case 'gif' :
+						imagegif($newImage, $dest, $quality);
+						break;
+					case 'png' :
+						imagepng($newImage, $dest, $quality);
+						break;
+					case 'jpg' :
+					case 'jpeg' :
+						imagejpeg($newImage, $dest, $quality);
+						break;
+					default :
+						return false;
+						break;
+				}
 				imagedestroy($newImage);
 				imagedestroy($oldImage);
-				
-				if(!$newName){
+				if (!$newName) {
 					unlink($img);
 					rename($dest, $img);
 				}
-				
 				return true;
 			}
-
 		} else {
 			return false;
 		}
-		
-
 	}
 
-	function image_type_to_extension($imagetype)
-	{
-	if(empty($imagetype)) return false;
-		switch($imagetype)
-		{
+	function image_type_to_extension($imagetype) {
+		if (empty($imagetype)) return false;
+		switch ($imagetype) {
 			case IMAGETYPE_GIF    : return 'gif';
 			case IMAGETYPE_JPEG    : return 'jpg';
 			case IMAGETYPE_PNG    : return 'png';
@@ -342,4 +305,4 @@ class Photo extends AppModel {
 		}
 	}
 }
-?>
+
