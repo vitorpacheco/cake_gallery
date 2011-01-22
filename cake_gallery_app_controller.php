@@ -2,3 +2,4 @@
 class CakeGalleryAppController extends AppController {
 
 }
+

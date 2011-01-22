@@ -5,10 +5,11 @@
  * PHP version 5
  *
  * @category Controller
- * @package  CakeGallery
- * @version  1.0
- * @author   Vitor Pacheco Costa <vitor-p.c@hotmail.com>
- * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @package CakeGallery
+ * @version 1.0
+ * @author Edinei L. Cipriani <phpedinei@gmail.com>
+ * @license http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @link http://www.demoveo.com
  */
 class AlbumsController extends CakeGalleryAppController {
 /**

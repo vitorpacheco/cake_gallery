@@ -2,3 +2,4 @@
 class CakeGalleryAppModel extends AppModel {
 
 }
+
