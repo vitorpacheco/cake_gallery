@@ -3,13 +3,13 @@
 	<?php echo $form->create('Album');?>
 		<fieldset>
 		<?php
-			echo $form->input('id');
-			echo $form->input('title',array('label' => __('Title', true)));
-			echo $form->input('slug');
-			echo $form->input('description',array('label' => __('Description', true)));
-			echo $form->input('status');
+			echo $this->Form->input('id');
+			echo $this->Form->input('title',array('label' => __('Title', true)));
+			echo $this->Form->input('slug');
+			echo $this->Form->input('description',array('label' => __('Description', true)));
+			echo $this->Form->input('status');
 		?>
 		</fieldset>
-	<?php echo $form->end('Submit');?>
+	<?php echo $this->Form->end('Submit');?>
 </div>
 
