@@ -19,6 +19,6 @@ Author: Edinei L. Cipriani
 E-mail: <phpedinei@gmail.com>
 Website: http://www.edineicipriani.com.br
 
-Adapted for CakePHP by: Vitor Pacheco Costa
+Adaptation for CakePHP by: Vitor Pacheco Costa
 E-mail: <vitor-p.c@hotmail.com>
 Website: http://vitorpacheco.com
