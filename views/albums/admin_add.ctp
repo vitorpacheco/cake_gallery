@@ -4,7 +4,7 @@
 		<fieldset>
 		<?php
 			echo $this->Form->input('title',array('label' => __('Title', true)));
-			echo $this->Form->input('slug');
+			//echo $this->Form->input('slug');
 			echo $this->Form->input('description',array('label' => __('Description', true)));
 			echo $this->Form->input('status');
 		?>

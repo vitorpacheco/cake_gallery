@@ -24,7 +24,7 @@ class AlbumsController extends CakeGalleryAppController {
 		$this->set('title_for_layout', __d('cake_gallery','Albums', true));
 		$this->Album->recursive = 0;
 		$this->paginate = array(
-			'limit' => Configure::read('CakeGallery.album_limit_pagination'),
+			'limit' => Configure::read('CakeGalleryOptions.album_limit_pagination'),
 			'order' => 'Album.id ASC'
 		);
 		$this->set('albums', $this->paginate());
@@ -33,9 +33,7 @@ class AlbumsController extends CakeGalleryAppController {
 	public function admin_add() {
 		if (!empty($this->data)) {
 			$this->Album->create();
-			if(empty($this->data['Album']['slug'])){
-				$this->data['Album']['slug'] = $this->__make_slug($this->data['CakeGallery']['naziv']);
-			}
+			$this->data['Album']['slug'] = Inflector::slug($this->data['Album']['title']);
 			$this->Album->recursive = -1;
 			if ($this->Album->save($this->data)) {
 				$this->Session->setFlash(__('Album is saved.', true));
@@ -85,7 +83,7 @@ class AlbumsController extends CakeGalleryAppController {
 		$this->paginate = array(
 			'conditions' => array('Album.status' => 1),
 			'contain' => array('Photo' => array('limit' => 1)),
-			'limit' => Configure::read('CakeGallery.album_limit_pagination'),
+			'limit' => Configure::read('CakeGalleryOptions.album_limit_pagination'),
 			'order' => 'Album.id ASC'
 		);
 		$this->set('albums', $this->paginate());
@@ -124,7 +122,7 @@ class AlbumsController extends CakeGalleryAppController {
 	}
 
 	public function admin_upload_photo($id = null) {
-		set_time_limit (240) ;
+		set_time_limit(240);
 		$this->layout = 'ajax';
 		$this->render(false);
 		Configure::write('debug', 0);
