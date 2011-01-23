@@ -5,9 +5,9 @@
  * @category Model
  * @package CakeGallery
  * @version 1.0
- * @author   Edinei L. Cipriani <phpedinei@gmail.com>
+ * @author Edinei L. Cipriani <phpedinei@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.edineicipriani.com.br
+ * @link http://www.edineicipriani.com.br
  */
 class Photo extends AppModel {
 /**
@@ -18,6 +18,10 @@ class Photo extends AppModel {
  */
 	var $name = 'Photo';
 	var $dir = '';
+	var $maxWidth;
+	var $thumbWidth;
+	var $thumbHeight;
+	var $thumbQuality;
 /**
  * Model associations: belongsTo
  *
@@ -26,7 +30,7 @@ class Photo extends AppModel {
  */
 	var $belongsTo = array(
 		'Album' => array(
-			'className' => 'Gallery.album',
+			'className' => 'CakeGallery.album',
 			'foreignKey' => 'album_id'
 		)
 	);
@@ -38,6 +42,10 @@ class Photo extends AppModel {
 			mkdir($dir.'photos', 0777);
 		}
 		$this->dir = WWW_ROOT  . 'img' . DS . 'photos' . DS;
+		$this->maxWwidth = Configure::read('CakeGalleryOptions.max_width');
+		$this->thumbWidth = Configure::read('CakeGalleryOptions.max_width_thumb');
+		$this->thumbHeight = Configure::read('CakeGalleryOptions.max_height_thumb');
+		$this->thumbQuality = Configure::read('CakeGalleryOptions.quality');
 	}
 
 	public function beforeDelete() {
@@ -52,29 +60,25 @@ class Photo extends AppModel {
 		return true;
 	}
 
-	public function upload($data) {
-		$max_width = Configure::read('CakeGallery.max_width');
-		$thumb_width = Configure::read('CakeGallery.max_width_thumb');
-		$thumb_height = Configure::read('CakeGallery.max_height_thumb');
-		$thumb_quality = Configure::read('CakeGallery.quality');
+	function upload($data) {
 		App::import('Vendor', 'CakeGallery.qqFileUploader', array('file' => 'qqFileUploader.php'));
 		$uploader = new qqFileUploader();
 		$result = $uploader->handleUpload($this->dir);
 		$width = $this->getWidth($this->dir.$result['file']);
 		$height = $this->getHeight($this->dir.$result['file']);
-		if ($width > $max_width) {
-			$scale = $max_width/$width;
+		if ($width > $this->maxWidth) {
+			$scale = $this->maxWidth/$width;
 			$this->resizeImage($this->dir.$result['file'],$width,$height,$scale);
 		} else {
 			$scale = 1;
 			$this->resizeImage($this->dir.$result['file'],$width,$height,$scale);
 		}
-		if (empty($thumb_height) && !empty($thumb_width)) {
-			$this->resizeImage2('resize', $result['file'], $this->dir, 'thumb_'.$result['file'], $thumb_width, FALSE, $thumb_quality);
-		} elseif (empty($thumb_width) && !empty($thumb_height)) {
-			$this->resizeImage2('resize', $result['file'], $this->dir, 'thumb_'.$result['file'], FALSE, $thumb_height, $thumb_quality);
+		if (empty($this->thumbHeight) && !empty($this->thumbWidth)) {
+			$this->resizeImage2('resize', $result['file'], 'thumb_'.$result['file'], $this->thumbWidth, FALSE, $this->thumbQuality);
+		} elseif (empty($this->thumbWidth) && !empty($this->thumbHeight)) {
+			$this->resizeImage2('resize', $result['file'], 'thumb_'.$result['file'], FALSE, $this->thumbHeight, $this->thumbQuality);
 		} else {
-			$this->resizeImage2('resizeCrop', $result['file'], $this->dir, 'thumb_'.$result['file'], $thumb_width, $thumb_height, $thumb_quality);
+			$this->resizeImage2('resizeCrop', $result['file'], 'thumb_'.$result['file'], $this->thumbWidth, $this->thumbHeight, $this->thumbQuality);
 		}
 		$data['Photo']['small'] = 'thumb_'.$result['file'];
 		$data['Photo']['large'] = $result['file'];
@@ -133,27 +137,27 @@ class Photo extends AppModel {
 		$cropped = $this->resizeThumbnailImage($thumbLocation,$imageLocation,$w,$h,$x1,$y1,$scale);
 	}
 
-	public function resizeImage2($cType = 'resize', $id, $imgFolder,
+	public function resizeImage2($cType = 'resize', $id,
 		$newName = false, $newWidth = false, $newHeight = false, $quality = 75,
 		$bgcolor = false) {
-		$img = $imgFolder . $id;
+		$img = $this->dir . $id;
 		list($oldWidth, $oldHeight, $type) = getimagesize($img);
 		$ext = $this->image_type_to_extension($type);
 		// check to make sure that the file is writeable, if so, create
 		// destination image (temp image)
-		if (is_writeable($imgFolder)) {
+		if (is_writeable($this->dir)) {
 			if ($newName) {
-				$dest = $imgFolder . $newName;
+				$dest = $this->dir . $newName;
 			} else {
-				$dest = $imgFolder . 'tmp_'.$id;
+				$dest = $this->dir . 'tmp_'.$id;
 			}
 		} else {
 			// if not let developer know
-			$imgFolder = substr($imgFolder, 0, strlen($imgFolder) -1);
-			$imgFolder = substr($imgFolder, strrpos($imgFolder, '\\') + 1, 20);
+			$this->dir = substr($this->dir, 0, strlen($this->dir) -1);
+			$this->dir = substr($this->dir, strrpos($this->dir, '\\') + 1, 20);
 			debug("You must allow proper permissions for image processing. And
 				the folder has to be writable.");
-			debug("Run \"chmod 777 on '$imgFolder' folder\"");
+			debug("Run \"chmod 777 on '$this->dir' folder\"");
 			exit();
 		}
 		// check to make sure that something is requested, otherwise there is
@@ -229,17 +233,17 @@ class Photo extends AppModel {
 						break;
 				}
 				switch ($ext) {
-					case 'gif' :
+					case 'gif':
 						$oldImage = imagecreatefromgif($img);
 						break;
-					case 'png' :
+					case 'png':
 						$oldImage = imagecreatefrompng($img);
 						break;
-					case 'jpg' :
-					case 'jpeg' :
+					case 'jpg':
+					case 'jpeg':
 						$oldImage = imagecreatefromjpeg($img);
 						break;
-					default :
+					default:
 						// image type is not a possible option
 						return false;
 						break;
@@ -255,17 +259,17 @@ class Photo extends AppModel {
 				// put old image on top of new image
 				imagecopyresampled($newImage, $oldImage, 0,0 , $startX, $startY, $applyWidth, $applyHeight, $oldWidth, $oldHeight);
 				switch ($ext) {
-					case 'gif' :
+					case 'gif':
 						imagegif($newImage, $dest, $quality);
 						break;
-					case 'png' :
+					case 'png':
 						imagepng($newImage, $dest, $quality);
 						break;
-					case 'jpg' :
-					case 'jpeg' :
+					case 'jpg':
+					case 'jpeg':
 						imagejpeg($newImage, $dest, $quality);
 						break;
-					default :
+					default:
 						return false;
 						break;
 				}
@@ -282,27 +286,45 @@ class Photo extends AppModel {
 		}
 	}
 
-	function image_type_to_extension($imagetype) {
-		if (empty($imagetype)) return false;
+	public function image_type_to_extension($imagetype) {
+		if (empty($imagetype)) {
+			return false;			
+		}
 		switch ($imagetype) {
-			case IMAGETYPE_GIF    : return 'gif';
-			case IMAGETYPE_JPEG    : return 'jpg';
-			case IMAGETYPE_PNG    : return 'png';
-			case IMAGETYPE_SWF    : return 'swf';
-			case IMAGETYPE_PSD    : return 'psd';
-			case IMAGETYPE_BMP    : return 'bmp';
-			case IMAGETYPE_TIFF_II : return 'tiff';
-			case IMAGETYPE_TIFF_MM : return 'tiff';
-			case IMAGETYPE_JPC    : return 'jpc';
-			case IMAGETYPE_JP2    : return 'jp2';
-			case IMAGETYPE_JPX    : return 'jpf';
-			case IMAGETYPE_JB2    : return 'jb2';
-			case IMAGETYPE_SWC    : return 'swc';
-			case IMAGETYPE_IFF    : return 'aiff';
-			case IMAGETYPE_WBMP    : return 'wbmp';
-			case IMAGETYPE_XBM    : return 'xbm';
-			default                : return false;
+			case IMAGETYPE_GIF:
+				return 'gif';
+			case IMAGETYPE_JPEG:
+				return 'jpg';
+			case IMAGETYPE_PNG:
+				return 'png';
+			case IMAGETYPE_SWF:
+				return 'swf';
+			case IMAGETYPE_PSD:
+				return 'psd';
+			case IMAGETYPE_BMP:
+				return 'bmp';
+			case IMAGETYPE_TIFF_II:
+				return 'tiff';
+			case IMAGETYPE_TIFF_MM:
+				return 'tiff';
+			case IMAGETYPE_JPC:
+				return 'jpc';
+			case IMAGETYPE_JP2:
+				return 'jp2';
+			case IMAGETYPE_JPX:
+				return 'jpf';
+			case IMAGETYPE_JB2:
+				return 'jb2';
+			case IMAGETYPE_SWC:
+				return 'swc';
+			case IMAGETYPE_IFF:
+				return 'aiff';
+			case IMAGETYPE_WBMP:
+				return 'wbmp';
+			case IMAGETYPE_XBM:
+				return 'xbm';
+			default:
+				return false;
 		}
 	}
 }
-

@@ -5,9 +5,9 @@
  * @category Model
  * @package CakeGallery
  * @version 1.0
- * @author   Edinei L. Cipriani <phpedinei@gmail.com>
+ * @author Edinei L. Cipriani <phpedinei@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.edineicipriani.com.br
+ * @link http://www.edineicipriani.com.br
  */
 class Album extends AppModel {
 /**
@@ -30,7 +30,7 @@ class Album extends AppModel {
  * @access public
  */
 	var $hasMany = array(
-		'Photo' => array('className' => 'Gallery.photo',
+		'Photo' => array('className' => 'CakeGallery.photo',
 			'foreignKey' => 'album_id',
 			'dependent' => true,
 			'conditions' => '',
