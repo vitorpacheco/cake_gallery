@@ -4,4 +4,3 @@
 <?php echo $this->element('gallery_album'); ?>
 <h3><?php __d('cake_gallery', 'View another albums'); ?></h3>
 <?php echo $this->element('more_albums'); ?>
-
