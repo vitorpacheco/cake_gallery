@@ -1,5 +1,5 @@
 <?php
-$config['CakeGallery']['index'] = array(
+$config['CakeGalleryRoutes']['index'] = array(
 	'/cake_gallery',
 	array(
 		'plugin' => 'cake_gallery',
@@ -7,7 +7,7 @@ $config['CakeGallery']['index'] = array(
 		'action' => 'index'
 	)
 );
-$config['CakeGallery']['albums_index'] = array(
+$config['CakeGalleryRoutes']['albums_index'] = array(
 	'/cake_gallery/albums',
 	array(
 		'plugin' => 'cake_gallery',
@@ -15,7 +15,7 @@ $config['CakeGallery']['albums_index'] = array(
 		'action' => 'index'
 	)
 );
-$config['CakeGallery']['album_slug'] = array(
+$config['CakeGalleryRoutes']['album_slug'] = array(
 	'/cake_gallery/album/:slug',
 	array(
 		'plugin' => 'cake_gallery',
@@ -26,7 +26,7 @@ $config['CakeGallery']['album_slug'] = array(
 		'pass' => array('slug')
 	)
 );
-$config['CakeGallery']['admin_index'] = array(
+$config['CakeGalleryRoutes']['admin_index'] = array(
 	'/admin/cake_gallery',
 	array(
 		'plugin' => 'cake_gallery',
@@ -35,4 +35,3 @@ $config['CakeGallery']['admin_index'] = array(
 		'action' => 'index'
 	)
 );
-
