@@ -1,3 +1,4 @@
+<?php echo $this->element('admin_menu');?>
 <div class="albums form">
 	<h2><?php __d('cake_gallery','Add album'); ?></h2>
 	<?php echo $this->Form->create('Album');?>

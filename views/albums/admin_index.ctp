@@ -1,17 +1,11 @@
+<?php echo $this->element('admin_menu');?>
 <div class="albums index">
 	<h2><?php __d('cake_gallery','Manage Albums'); ?></h2>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__d('cake_gallery','New album', true), array('action'=>'add')); ?></li>
-		</ul>
-	</div>
 
 	<table cellpadding="0" cellspacing="0">
 		<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php __d('cake_gallery','Order number', true);?></th>
-			<th><?php __d('cake_gallery','Title', true);?></th>
+			<th><?php __d('cake_gallery', 'Title', true);?></th>
 			<th><?php echo $this->Paginator->sort('status');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 		</tr>
