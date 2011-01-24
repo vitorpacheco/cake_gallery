@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-09-08 21:16-0300\n"
+"POT-Creation-Date: 2011-01-24 00:00-0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,150 +14,162 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: /controllers/albums_controller.php:25;105
+#: /controllers/albums_controller.php:39
+#: /controllers/albums_controller.php:54
+msgid "Album is saved."
+msgstr ""
+
+#: /controllers/albums_controller.php:49
+msgid "Invalid album."
+msgstr ""
+
+#: /views/albums/admin_add.ctp:6
+#: /views/albums/admin_edit.ctp:7
+#: /views/albums/admin_index.ctp:8
+msgid "Title"
+msgstr ""
+
+#: /views/albums/admin_add.ctp:7
+#: /views/albums/admin_edit.ctp:9
+#: /views/photos/admin_edit.ctp:12
+msgid "Description"
+msgstr ""
+
+#: /views/albums/admin_index.ctp:10
+#: /views/photos/admin_index.ctp:13
+msgid "Actions"
+msgstr ""
+
+#: /views/albums/admin_index.ctp:26
+#: /views/photos/admin_index.ctp:28
+msgid "Edit"
+msgstr ""
+
+#: /views/albums/admin_index.ctp:27
+#: /views/photos/admin_index.ctp:29
+msgid "Delete"
+msgstr ""
+
+#: /views/albums/admin_index.ctp:27
+#: /views/photos/admin_index.ctp:29
+msgid "Are you sure you want to delete?"
+msgstr ""
+
+#: /views/albums/admin_index.ctp:35
+#: /views/photos/admin_index.ctp:37
+msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
+msgstr ""
+
+#: /views/albums/admin_index.ctp:40
+#: /views/photos/admin_index.ctp:42
+msgid "previous"
+msgstr ""
+
+#: /views/albums/admin_index.ctp:43
+#: /views/photos/admin_index.ctp:45
+msgid "next"
+msgstr ""
+
+#: /views/photos/admin_edit.ctp:8
+msgid "Gallery"
+msgstr ""
+
+#: /views/photos/admin_index.ctp:5
+msgid "Add new pictures"
+msgstr ""
+
+#: /controllers/albums_controller.php:24;80
 #: /views/albums/index.ctp:3
 msgid "Albums"
 msgstr ""
 
-#: /controllers/albums_controller.php:58;73
-msgid "Album is saved."
-msgstr ""
-
-#: /controllers/albums_controller.php:61;76
+#: /controllers/albums_controller.php:42;57
 msgid "Album could not be saved. Please try again."
 msgstr ""
 
-#: /controllers/albums_controller.php:68
-msgid "Invalid album."
-msgstr ""
-
-#: /controllers/albums_controller.php:89
+#: /controllers/albums_controller.php:65
 msgid "Invalid ID for album."
 msgstr ""
 
-#: /controllers/albums_controller.php:98
+#: /controllers/albums_controller.php:73
 msgid "Album is deleted, and whole directory with images."
 msgstr ""
 
-#: /controllers/albums_controller.php:121;133;143
+#: /controllers/albums_controller.php:94;106;115
 msgid "Invalid album. Please try again."
 msgstr ""
 
-#: /controllers/albums_controller.php:137
+#: /controllers/albums_controller.php:109
+#: /views/albums/view.ctp:2
 msgid "Album"
 msgstr ""
 
-#: /controllers/albums_controller.php:146
+#: /controllers/albums_controller.php:118
 msgid "Manage your photos in album"
 msgstr ""
 
-#: /controllers/albums_controller.php:175
+#: /controllers/albums_controller.php:139
 msgid "Invalid photo. Please try again."
 msgstr ""
 
-#: /controllers/albums_controller.php:181
+#: /controllers/albums_controller.php:144
 msgid "Problem to remove photo. Please try again."
-msgstr ""
-
-#: /controllers/photos_controller.php:54
-msgid "Gallery pictures"
-msgstr ""
-
-#: /controllers/photos_controller.php:70
-msgid "Add pictures"
-msgstr ""
-
-#: /controllers/photos_controller.php:146
-msgid "Edit pictures"
-msgstr ""
-
-#: /controllers/photos_controller.php:149
-msgid "Invalid pictures."
-msgstr ""
-
-#: /controllers/photos_controller.php:154
-msgid "Picture is saved."
-msgstr ""
-
-#: /controllers/photos_controller.php:157
-msgid "Picture could not be saved. Please try again."
-msgstr ""
-
-#: /controllers/photos_controller.php:175
-msgid "Invalid picture ID."
-msgstr ""
-
-#: /controllers/photos_controller.php:185
-msgid "Picture is deleted from gallery."
 msgstr ""
 
 #: /views/albums/admin_add.ctp:2
 msgid "Add album"
 msgstr ""
 
-#: /views/albums/admin_add.ctp:6
-#: /views/albums/admin_edit.ctp:7
-#: /views/albums/admin_index.ctp:15
-msgid "Title"
-msgstr ""
-
-#: /views/albums/admin_add.ctp:8
-#: /views/albums/admin_edit.ctp:9
-#: /views/photos/admin_edit.ctp:13
-#: /views/photos/admin_index.ctp:14
-msgid "Description"
-msgstr ""
-
 #: /views/albums/admin_edit.ctp:2
 msgid "Edit album"
 msgstr ""
 
-#: /views/albums/admin_index.ctp:6
-#: /views/elements/admin_menu.ctp:4
-msgid "New album"
-msgstr ""
-
-#: /views/albums/admin_index.ctp:14
-msgid "Order number"
-msgstr ""
-
-#: /views/albums/admin_index.ctp:17
-#: /views/photos/admin_index.ctp:15
-msgid "Actions"
-msgstr ""
-
-#: /views/albums/admin_index.ctp:23
-msgid "Move up"
-msgstr ""
-
-#: /views/albums/admin_index.ctp:24
-msgid "Move down"
+#: /views/albums/admin_index.ctp:3
+#: /views/albums/admin_upload.ctp:2
+msgid "Manage Albums"
 msgstr ""
 
 #: /views/albums/admin_index.ctp:25
 msgid "Photos in album"
 msgstr ""
 
-#: /views/albums/admin_index.ctp:27
-#: /views/photos/admin_index.ctp:21
-msgid "Edit"
+#: /views/albums/view.ctp:5
+msgid "View another albums"
 msgstr ""
 
-#: /views/albums/admin_index.ctp:28
-#: /views/photos/admin_index.ctp:22
-msgid "Delete"
+#: /views/elements/admin_menu.ctp:2
+msgid "Admin Menu"
 msgstr ""
 
-#: /views/albums/admin_index.ctp:28
-msgid "Jeste li sigurni?"
+#: /views/elements/admin_menu.ctp:4
+msgid "List albums"
 msgstr ""
 
-#: /views/albums/admin_index.ctp:46
-#: /views/photos/admin_index.ctp:43
-msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
+#: /views/elements/admin_menu.ctp:5
+msgid "New album"
 msgstr ""
 
-#: /views/albums/admin_upload.ctp:11;26
+#: /views/elements/admin_menu.ctp:6
+msgid "Gallery settings"
+msgstr ""
+
+#: /views/elements/gallery_album.ctp:22
+msgid "No photos in the album"
+msgstr ""
+
+#: /views/photos/admin_add.ctp:2
+msgid "Add Photos"
+msgstr ""
+
+#: /views/photos/admin_edit.ctp:2
+msgid "Edit Photos"
+msgstr ""
+
+#: /views/photos/admin_index.ctp:2
+msgid "Photos"
+msgstr ""
+
+#: /views/albums/admin_upload.ctp:9;27
 msgid "remove"
 msgstr ""
 
@@ -169,36 +181,15 @@ msgstr ""
 msgid "Add new photos"
 msgstr ""
 
-#: /views/albums/admin_upload.ctp:39
+#: /views/albums/admin_upload.ctp:38
 msgid "cancel"
 msgstr ""
 
-#: /views/albums/index.ctp:4
+#: /views/albums/index.ctp:6
 msgid "No albums found."
 msgstr ""
 
-#: /views/elements/admin_menu.ctp:1
-#: /views/photos/admin_edit.ctp:9
-msgid "Gallery"
-msgstr ""
-
-#: /views/elements/admin_menu.ctp:3
-msgid "List albums"
-msgstr ""
-
-#: /views/elements/admin_menu.ctp:5
-msgid "Gallery settings"
-msgstr ""
-
-#: /views/elements/gallery_album.ctp:18
-msgid "No photos in the album"
-msgstr ""
-
-#: /views/photos/admin_index.ctp:6
-msgid "Add new pictures"
-msgstr ""
-
-#: /views/photos/admin_index.ctp:22
-msgid "Jesi siguran?"
+#: /views/albums/index.ctp:23
+msgid "view album"
 msgstr ""
 
