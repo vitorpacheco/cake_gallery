@@ -106,7 +106,7 @@ class AlbumsController extends CakeGalleryAppController {
 			$this->Session->setFlash(__d('cake_gallery','Invalid album. Please try again.', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('title_for_layout',__d('cake_gallery',"Album", true) . $album['Album']['title']);
+		$this->set('title_for_layout', __d('cake_gallery','Album', true) . $album['Album']['title']);
 		$this->set(compact('album'));
 	}
 

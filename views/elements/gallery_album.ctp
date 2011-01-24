@@ -21,7 +21,6 @@
 	<?php else: ?>
 		<?php  __d('cake_gallery','No photos in the album'); ?>
 	<?php endif;?>
-<?php else: ?>
-	[CakeGallery:<?php echo $slug; ?>]
-<?php endif; ?>
-
+<?php else:?>
+	<?php echo $this->CakeGallery->loadGallery($slug);?>
+<?php endif;?>
