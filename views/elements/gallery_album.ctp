@@ -1,6 +1,4 @@
-<?php $x = false ;?>
 <?php if (!isset($album)) {
-	$x = true;
 	$album = $this->requestAction(array(
 		'plugin' => 'cake_gallery',
 		'controller' => 'albums',
@@ -10,7 +8,7 @@
 ?>
 <?php if (!empty($album)): ?>
 	<?php if (isset($album['Photo']) && count($album['Photo'])): ?>
-		<div id="gallery-<?php echo $album['Album']['id']; ?>">
+		<div id="gallery-<?php echo $album['Album']['id']; ?>" style="width:900px;height:450px;">
 			<?php foreach($album['Photo'] as $photo): ?>
 			<a href="<?php echo $this->Html->url('/img/photos/'. $photo['large']); ?>"><img src="<?php echo $this->Html->url('/img/photos/'. $photo['small']); ?>"></a>
 			<?php endforeach; ?>
@@ -24,6 +22,6 @@
 		<?php  __d('cake_gallery','No photos in the album'); ?>
 	<?php endif;?>
 <?php else: ?>
-	[Gallery:<?php echo $slug; ?>]
+	[CakeGallery:<?php echo $slug; ?>]
 <?php endif; ?>
 
