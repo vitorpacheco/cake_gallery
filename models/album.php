@@ -44,5 +44,13 @@ class Album extends AppModel {
 			'counterQuery' => ''
 		),
 	);
+	
+	function beforeSave() {
+		if (empty($this->data['Album']['slug'])) {
+			$this->data['Album']['slug'] = Inflector::slug($this->data['Album']['title']);
+		} else {
+			$this->data['Album']['slug'] = Inflector::slug($this->data['Album']['slug']);
+		}
+		return true;
+	}
 }
-
