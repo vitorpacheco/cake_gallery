@@ -1,4 +1,5 @@
-<?php if (!isset($album)) {
+<?php
+ if (!isset($album)) {
 	$album = $this->requestAction(array(
 		'plugin' => 'cake_gallery',
 		'controller' => 'albums',
@@ -21,6 +22,4 @@
 	<?php else: ?>
 		<?php  __d('cake_gallery','No photos in the album'); ?>
 	<?php endif;?>
-<?php else:?>
-	<?php echo $this->CakeGallery->loadGallery($slug);?>
 <?php endif;?>
