@@ -20,48 +20,48 @@ class PhotoFixture extends CakeTestFixture {
 			'album_id' => 1,
 			'title' => 'Lorem ipsum dolor sit amet',
 			'descrition' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'small' => 'Lorem ipsum dolor sit amet',
-			'large' => 'Lorem ipsum dolor sit amet'
+			'small' => 'thumb_01.jpg',
+			'large' => '01.jpg'
 		),
 		array(
 			'id' => 2,
 			'album_id' => 2,
 			'title' => 'Lorem ipsum dolor sit amet',
 			'descrition' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'small' => 'Lorem ipsum dolor sit amet',
-			'large' => 'Lorem ipsum dolor sit amet'
+			'small' => 'thumb_02.jpg',
+			'large' => '02.jpg'
 		),
 		array(
 			'id' => 3,
 			'album_id' => 2,
 			'title' => 'Lorem ipsum dolor sit amet',
 			'descrition' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'small' => 'Lorem ipsum dolor sit amet',
-			'large' => 'Lorem ipsum dolor sit amet'
+			'small' => 'thumb_03.jpg',
+			'large' => '03.jpg'
 		),
 		array(
 			'id' => 4,
 			'album_id' => 3,
 			'title' => 'Lorem ipsum dolor sit amet',
 			'descrition' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'small' => 'Lorem ipsum dolor sit amet',
-			'large' => 'Lorem ipsum dolor sit amet'
+			'small' => 'thumb_04.jpg',
+			'large' => '04.jpg'
 		),
 		array(
 			'id' => 5,
 			'album_id' => 3,
 			'title' => 'Lorem ipsum dolor sit amet',
 			'descrition' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'small' => 'Lorem ipsum dolor sit amet',
-			'large' => 'Lorem ipsum dolor sit amet'
+			'small' => 'thumb_05.jpg',
+			'large' => '05.jpg'
 		),
 		array(
 			'id' => 6,
 			'album_id' => 3,
 			'title' => 'Lorem ipsum dolor sit amet',
 			'descrition' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'small' => 'Lorem ipsum dolor sit amet',
-			'large' => 'Lorem ipsum dolor sit amet'
+			'small' => 'thumb_06.jpg',
+			'large' => '06.jpg'
 		),
 	);
 }

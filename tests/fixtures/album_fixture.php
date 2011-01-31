@@ -16,22 +16,22 @@ class AlbumFixture extends CakeTestFixture {
 	var $records = array(
 		array(
 			'id' => 1,
-			'title' => 'album 1',
-			'slug' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Lorem ipsum dolor sit amet',
+			'slug' => 'album 1',
 			'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'status' => 1
 		),
 		array(
 			'id' => 2,
-			'title' => 'album 2',
-			'slug' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Lorem ipsum dolor sit amet',
+			'slug' => 'album 2',
 			'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'status' => 1
 		),
 		array(
 			'id' => 3,
-			'title' => 'album 3',
-			'slug' => 'Lorem ipsum dolor sit amet',
+			'title' => 'Lorem ipsum dolor sit amet',
+			'slug' => 'album 3',
 			'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'status' => 1
 		),
@@ -39,7 +39,6 @@ class AlbumFixture extends CakeTestFixture {
 	
 	function __construct() {
 		parent::__construct();
-		App::import('Core', 'Inflector');
 		foreach ($this->records as &$record) {
 			$record['slug'] = Inflector::slug($record['slug']);
 		}
