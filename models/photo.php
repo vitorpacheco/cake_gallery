@@ -30,8 +30,12 @@ class Photo extends AppModel {
  */
 	var $belongsTo = array(
 		'Album' => array(
-			'className' => 'CakeGallery.album',
-			'foreignKey' => 'album_id'
+			'className' => 'CakeGallery.Album',
+			'foreignKey' => 'album_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+			
 		)
 	);
 

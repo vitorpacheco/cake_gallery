@@ -30,7 +30,8 @@ class Album extends AppModel {
  * @access public
  */
 	var $hasMany = array(
-		'Photo' => array('className' => 'CakeGallery.photo',
+		'Photo' => array(
+			'className' => 'CakeGallery.Photo',
 			'foreignKey' => 'album_id',
 			'dependent' => true,
 			'conditions' => '',
@@ -43,5 +44,13 @@ class Album extends AppModel {
 			'counterQuery' => ''
 		),
 	);
+	
+	function beforeSave() {
+		if (empty($this->data['Album']['slug'])) {
+			$this->data['Album']['slug'] = Inflector::slug($this->data['Album']['title']);
+		} else {
+			$this->data['Album']['slug'] = Inflector::slug($this->data['Album']['slug']);
+		}
+		return true;
+	}
 }
-

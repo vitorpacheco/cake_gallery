@@ -33,7 +33,6 @@ class AlbumsController extends CakeGalleryAppController {
 	public function admin_add() {
 		if (!empty($this->data)) {
 			$this->Album->create();
-			$this->data['Album']['slug'] = Inflector::slug($this->data['Album']['title']);
 			$this->Album->recursive = -1;
 			if ($this->Album->save($this->data)) {
 				$this->Session->setFlash(__('Album is saved.', true));
